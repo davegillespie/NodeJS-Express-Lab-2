@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 app.use(express.json());
-app.use(express.static("/public"));
+app.use(express.static("public"));
 
 const pg = require("pg");
 const pool = new pg.Pool({
@@ -27,9 +27,10 @@ const pool = new pg.Pool({
 //     }
 
 
-app.post("/shoppingcart", (req, res) => {
-    let data = req.body;
+app.post("/cart-items", (req, res) => {
+    let data = req.body[0];
     let id = data.id;
+    console.log(data);
 
     pool.query(
         "INSERT INTO shoppingcart (id, product, price, quantity) values($1::int, $2::text, $3::int, $4::int)", 
@@ -41,7 +42,7 @@ app.post("/shoppingcart", (req, res) => {
     })
   });
 
-app.put("/shoppingcart/:id", (req, res) => {
+app.put("/cart-items/:id", (req, res) => {
     let id = req.params.id;
     let data = req.body;
 
@@ -49,7 +50,7 @@ app.put("/shoppingcart/:id", (req, res) => {
     let name = data.name;
 });
 
-app.get("/shoppingcart", (req, res) => {
+app.get("/cart-items", (req, res) => {
     pool.query("SELECT * FROM shoppingcart;")
     .then( (result) => {
         res.send(result.rows);

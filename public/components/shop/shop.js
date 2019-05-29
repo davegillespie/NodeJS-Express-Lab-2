@@ -16,16 +16,6 @@ function ShopController($scope, CartService) {
         });
         CartService.addItem($scope.items);
 
-        // $http.post('/shoppingcart', $scope.items)
-        // .success((data) => {
-        //   $scope.items = {};
-        //   $scope.cartList = data;
-        //   console.log(data);
-        // })
-        // .error((error) => {
-        //   console.log('Error: ' + error);
-        // });
-
     }
 
 
@@ -60,13 +50,7 @@ function ShopController($scope, CartService) {
                 <input class="input-item" type="text" placeholder="Product" ng-model="newItem.product"/>
                 <input class="input-item" type="number" placeholder="Price" ng-model="newItem.price"/>
                 <input class="input-item" type="number" placeholder="Quantity" ng-model="newItem.quantity"/>
-                <div class="available">Available?</div>
-                <label class="switch">
-                <input type="checkbox" ng-model="newItem.available" checked/>
-                <span class="slider round"></span>
-                </label>
-
-
+                
                 <br>
                 <br>
 

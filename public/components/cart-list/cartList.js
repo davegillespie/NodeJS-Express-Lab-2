@@ -3,7 +3,7 @@ function CartListController(CartService) {
     let ctrl = this;
     
     ctrl.cartList = CartService.cartList;
-    // ctrl.removeItem = CartService.removeItem;
+    ctrl.removeItem = CartService.removeItem;
 
     ctrl.removeItem = (item) => {
       let i = ctrl.items.indexOf(item);
