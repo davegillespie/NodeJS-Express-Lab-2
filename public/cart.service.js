@@ -35,19 +35,20 @@ function CartService($http) {
             console.log("working");
     }
 
-    service.getTable = (item) => {
-        console.log(item);
-        service.cartList.get(item);
+    service.getTable = (result) => {
+        console.log(result);
+        service.cartList.get(result);
 
         function getSuccess (res) { 
-            return res.data.data;
+            return result.rows
           }
 
-        $http.get('/cart-items', item)
+        $http.get('/cart-items', result)
             .then( (success) => {
-                service.items = {};
-                service.cartList = data;
-                console.log(data);
+                // service.items = {};
+                // service.cartList = data;
+                res.send(result.rows);
+                console.log(result);
             return getSuccess(success);
             }); 
 
