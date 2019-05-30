@@ -7,7 +7,7 @@ app.use(express.static("public"));
 const pg = require("pg");
 const pool = new pg.Pool({
     user: "postgres",
-    password: "",
+    password: "Yeti2019",
     host: "localhost",
     port: 5432,
     database: "ExpressShopDB",

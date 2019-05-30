@@ -1,5 +1,5 @@
 "use strict";
-function CartService($http) {
+function CartService($http, $q) {
     const service = this;
 
         /**
@@ -35,22 +35,19 @@ function CartService($http) {
             console.log("working");
     }
 
-    service.getTable = (result) => {
-        console.log(result);
-        service.cartList.get(result);
+    service.getTable = () => {
+        return $q ( (resolve, reject) => {
 
         function getSuccess (res) { 
-            return result.rows
+            return res.data;
           }
 
-        $http.get('/cart-items', result)
-            .then( (success) => {
-                // service.items = {};
-                // service.cartList = data;
-                res.send(result.rows);
-                console.log(result);
-            return getSuccess(success);
+        $http.get('/cart-items')
+            .then( (response) => {
+                console.log(response);
+            return getSuccess(response);
             }); 
+        });
 
     }
     

@@ -2,8 +2,14 @@
 function CartListController(CartService) {
     let ctrl = this;
     
-    ctrl.cartList = CartService.cartList;
+    // ctrl.cartList = CartService.cartList;
     ctrl.removeItem = CartService.removeItem;
+    ctrl.getTable = CartService.getTable;
+
+    CartService.getTable()
+    .then( (data) => {
+      ctrl.cartList = data;
+    });
 
     ctrl.removeItem = (item) => {
       let i = ctrl.items.indexOf(item);
@@ -12,7 +18,7 @@ function CartListController(CartService) {
           console.log("working");
   }
 
-    console.log(ctrl.cartList);
+    // console.log(ctrl.cartList);
 
 }
   
@@ -30,17 +36,15 @@ function CartListController(CartService) {
               <th>Product</th>
               <th>Price</th> 
               <th>Quantity</th>
-              <th>Available</th>
               <th>Close</th>
           </tr>
       </thead>
       <tbody>
           <tr ng-repeat="item in $ctrl.cartList">
-              <td> {{item[0].id}} </td>
-              <td> {{item[0].product}} </td>
-              <td> {{item[0].price}} </td>
-              <td> {{item[0].quantity}} </td>
-              <td> {{item[0].available}} </td>
+              <td> {{item.id}} </td>
+              <td> {{item.product}} </td>
+              <td> {{item.price}} </td>
+              <td> {{item.quantity}} </td>
               <td> <button class="remove" ng-click="removeItem(item)"> x </button> </td>
           </tr>
         </tbody>
