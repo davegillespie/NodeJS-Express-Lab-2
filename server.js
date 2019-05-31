@@ -26,7 +26,6 @@ const pool = new pg.Pool({
 //         return response.data;
 //     }
 
-
 app.post("/cart-items", (req, res) => {
     let data = req.body[0];
     let id = data.id;
@@ -56,6 +55,22 @@ app.get("/cart-items", (req, res) => {
         res.send(result.rows);
     })
   });
+
+
+ // accept DELETE request at URI: /cartItems
+ app.delete('/cart-items/:id', (req, res) => {
+    console.log(req.body); // <-- this is the data that has been extracted from the request
+    res.send('Deleting cartItems..');
+
+    pool.query(
+        "DELETE FROM shoppingcart WHERE id = $1::int", [req.params.id])
+    .then( () => {
+        res.status(202); // Deleted
+        res.send('Successfully deleted item!');
+    })
+});
+
+
 
 app.listen(4000, () => {
     console.log("JSON Server is running on 4000"); // localhost:4000/shoppingcart

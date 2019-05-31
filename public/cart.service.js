@@ -13,7 +13,6 @@ function CartService($http, $q) {
         console.log(item);
         service.cartList.push(item);  // This part works
         
-
         function genericSuccess (res) { 
             // return res.data.data;
             return res.item;
@@ -29,10 +28,18 @@ function CartService($http, $q) {
     }
 
     service.removeItem = (item) => {
-        let i = service.items.indexOf(item);
-            // service.items.splice(removedItem, 1);
-            service.cartList.splice(i, 1);
-            console.log("working");
+        return $q ( (resolve, reject) => {
+            $http({
+                url: '/cart-items/' + item.id,
+                method: 'DELETE',
+                data: item
+            })
+            .then( (item) => {
+                    console.log(item);
+                resolve(getSuccess(item));
+                }); 
+            });
+    
     }
 
     service.getTable = () => {
@@ -45,7 +52,7 @@ function CartService($http, $q) {
         $http.get('/cart-items')
             .then( (response) => {
                 console.log(response);
-            return getSuccess(response);
+            resolve(getSuccess(response));
             }); 
         });
 

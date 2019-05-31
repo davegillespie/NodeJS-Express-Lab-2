@@ -1,24 +1,30 @@
 "use strict";
 function CartListController(CartService) {
     let ctrl = this;
+
+    ctrl.removeItem = (item) => {
+      console.log('here');
+      console.log(item.data, item);
+
+      CartService.removeItem(item)
+      .then( () => {
+      
+        CartService.getTable()
+        .then( (data) => {
+          ctrl.cartList = data;
+        });
+  
+      })
+    }
     
     // ctrl.cartList = CartService.cartList;
-    ctrl.removeItem = CartService.removeItem;
+    // ctrl.removeItem = CartService.removeItem;
     ctrl.getTable = CartService.getTable;
 
     CartService.getTable()
     .then( (data) => {
       ctrl.cartList = data;
     });
-
-    ctrl.removeItem = (item) => {
-      let i = ctrl.items.indexOf(item);
-          ctrl.items.splice(removedItem, 1);
-          ctrl.cartList.splice(i, 1);
-          console.log("working");
-  }
-
-    // console.log(ctrl.cartList);
 
 }
   
@@ -45,7 +51,7 @@ function CartListController(CartService) {
               <td> {{item.product}} </td>
               <td> {{item.price}} </td>
               <td> {{item.quantity}} </td>
-              <td> <button class="remove" ng-click="removeItem(item)"> x </button> </td>
+              <td> <a type="button" ng-click="$ctrl.removeItem(item)"> x </a> </td>
           </tr>
         </tbody>
     </table>
@@ -58,6 +64,6 @@ function CartListController(CartService) {
     controller: CartListController,
     bindings: {
       addItem: '&',
-      removeItem: '&'
+     // removeItem: '&'
     }
   });
