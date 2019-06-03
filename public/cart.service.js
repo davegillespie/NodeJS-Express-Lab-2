@@ -21,8 +21,8 @@ function CartService($http, $q) {
             $http.post('/cart-items', item)
             .then( (success) => {
                 service.items = {};
-                service.cartList = data;
-                console.log(data);
+                // service.cartList = data;
+                // console.log(data);
             return genericSuccess(success);
             }); 
     }
@@ -57,6 +57,19 @@ function CartService($http, $q) {
         });
 
     }
+
+    // service.updateItem = (item) => {
+    //     return $http({
+    //       url: "/cart-items/" + item.id,
+    //       method: "PUT",
+    //       data: item
+    //     }).then((response) => {
+    //       return response.data;
+    //     });
+    //   }
+
+
+
     
 };
     

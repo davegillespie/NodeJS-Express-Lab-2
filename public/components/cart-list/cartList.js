@@ -26,6 +26,30 @@ function CartListController(CartService) {
       ctrl.cartList = data;
     });
 
+
+
+
+    // ctrl.updateItem = (item) => {
+    
+    //   let itemUpdate = {
+    //     quantity: item.quantity
+    //   } 
+  
+    //   CartService.updateItem(itemUpdate, item.id)
+    //   .then( (data) => {
+    //     ctrl.cartList = data;
+    //     ctrl.getTable();
+    //   })
+    //   .catch( (err) => {
+    //     console.log(err);
+    //   })
+  
+    // }
+
+    
+   
+
+
 }
   
   angular.module('shopApp')
@@ -42,16 +66,19 @@ function CartListController(CartService) {
               <th>Product</th>
               <th>Price</th> 
               <th>Quantity</th>
-              <th>Close</th>
+              <th>Remove</th>
           </tr>
       </thead>
       <tbody>
           <tr ng-repeat="item in $ctrl.cartList">
               <td> {{item.id}} </td>
               <td> {{item.product}} </td>
-              <td> {{item.price}} </td>
-              <td> {{item.quantity}} </td>
-              <td> <a type="button" ng-click="$ctrl.removeItem(item)"> x </a> </td>
+              <td> {{item.price | currency}} </td>
+              <td> {{item.quantity}} 
+                <button ng-click="$ctrl.updateItem(newItem.quantity, item.id)" class="update-quantity">Update Quantity</button> 
+              </td>
+              
+              <td> <button ng-click="$ctrl.removeItem(item)"> x </button> </td>
           </tr>
         </tbody>
     </table>

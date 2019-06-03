@@ -41,13 +41,31 @@ app.post("/cart-items", (req, res) => {
     })
   });
 
+
+
 app.put("/cart-items/:id", (req, res) => {
     let id = req.params.id;
     let data = req.body;
 
     // req.params, req.body, req.query
     let name = data.name;
+
+    let data = req.body;
+        pool.query(
+            "UPDATE shoppingcart SET quantity=$3::int WHERE id=$1::int", 
+            [req.params.id, data.quantity]
+        )
+        .then( () => {
+            res.status(201); // Created
+            res.send('Successfully updated an item!');
+        })
+        .catch( (err) => {
+            console.log('error');
+        })
+
 });
+
+
 
 app.get("/cart-items", (req, res) => {
     pool.query("SELECT * FROM shoppingcart;")
