@@ -45,14 +45,13 @@ app.post("/cart-items", (req, res) => {
 
 app.put("/cart-items/:id", (req, res) => {
     let id = req.params.id;
-    let data = req.body;
 
     // req.params, req.body, req.query
-    let name = data.name;
+   // let name = data.name;
 
     let data = req.body;
         pool.query(
-            "UPDATE shoppingcart SET quantity=$3::int WHERE id=$1::int", 
+            "UPDATE shoppingcart SET quantity=$2::int WHERE id=$1::int", 
             [req.params.id, data.quantity]
         )
         .then( () => {

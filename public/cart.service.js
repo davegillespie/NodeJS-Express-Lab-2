@@ -58,15 +58,15 @@ function CartService($http, $q) {
 
     }
 
-    // service.updateItem = (item) => {
-    //     return $http({
-    //       url: "/cart-items/" + item.id,
-    //       method: "PUT",
-    //       data: item
-    //     }).then((response) => {
-    //       return response.data;
-    //     });
-    //   }
+    service.updateItem = (item) => {
+        return $http({
+          url: "/cart-items/" + item.id,
+          method: "PUT",
+          data: item
+        }).then((response) => {
+          return response.data;
+        });
+      }
 
 
 

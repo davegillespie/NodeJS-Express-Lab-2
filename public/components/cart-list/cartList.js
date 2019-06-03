@@ -29,22 +29,23 @@ function CartListController(CartService) {
 
 
 
-    // ctrl.updateItem = (item) => {
+    ctrl.updateItem = (item, quantity) => {
     
-    //   let itemUpdate = {
-    //     quantity: item.quantity
-    //   } 
+      // let itemUpdate = {
+      //   quantity: item.quantity
+      // } 
+      item.quantity = quantity;
   
-    //   CartService.updateItem(itemUpdate, item.id)
-    //   .then( (data) => {
-    //     ctrl.cartList = data;
-    //     ctrl.getTable();
-    //   })
-    //   .catch( (err) => {
-    //     console.log(err);
-    //   })
+      CartService.updateItem(item)
+      .then( (data) => {
+        ctrl.cartList = data;
+        ctrl.getTable();
+      })
+      .catch( (err) => {
+        console.log(err);
+      })
   
-    // }
+    }
 
     
    
@@ -75,7 +76,8 @@ function CartListController(CartService) {
               <td> {{item.product}} </td>
               <td> {{item.price | currency}} </td>
               <td> {{item.quantity}} 
-                <button ng-click="$ctrl.updateItem(newItem.quantity, item.id)" class="update-quantity">Update Quantity</button> 
+                
+              <button ng-click="$ctrl.updateItem(item, 5)" class="update-quantity">Update Quantity</button> 
               </td>
               
               <td> <button ng-click="$ctrl.removeItem(item)"> x </button> </td>
